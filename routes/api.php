@@ -3,6 +3,9 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\ProgressController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -25,4 +28,21 @@ Route::group([
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::post('/refresh', [AuthController::class, 'refresh']);
     Route::get('/user-profile', [AuthController::class, 'userProfile']);    
+
+    Route::post('/project',[ProjectController::class,'store']);
+
+    Route::get('/progress',[ProgressController::class,'index']);
+    
 });
+Route::group([
+    'middleware' => 'api',
+], function ($router) {
+    Route::get('/user-profile', [AuthController::class, 'userProfile']);    
+
+    Route::post('/project',[ProjectController::class,'store']);
+
+    Route::post('/progress',[ProgressController::class,'store']);
+    
+});
+Route::get('/project',[ProjectController::class,'index']);
+Route::get('/progress/{id}',[ProgressController::class,'index']);

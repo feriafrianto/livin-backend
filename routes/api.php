@@ -39,6 +39,7 @@ Route::group([
 ], function ($router) {
     Route::get('/user-profile', [AuthController::class, 'userProfile']);    
 
+    Route::get('/user/project',[ProjectController::class,'getProjectUser']);
     Route::post('/project',[ProjectController::class,'store']);
 
     Route::post('/progress',[ProgressController::class,'store']);

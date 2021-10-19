@@ -5,13 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Project extends Model
+class Requirement extends Model
 {
     use HasFactory;
-    protected $primaryKey = 'project_id';
+    protected $primaryKey = 'requirements_id';
 
     protected $fillable = [
-        'title','description','scale',
-        'deadline','visibility','user_id'
+        'name','project_id'
     ];
 }

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 18, 2021 at 04:24 AM
+-- Generation Time: Oct 19, 2021 at 04:02 AM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 7.3.30
 
@@ -59,7 +59,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (7, '2019_08_19_000000_create_failed_jobs_table', 1),
 (8, '2019_12_14_000001_create_personal_access_tokens_table', 1),
 (9, '2021_10_17_141038_create_projects_table', 2),
-(11, '2021_10_17_162429_create_progress_table', 3);
+(11, '2021_10_17_162429_create_progress_table', 3),
+(12, '2021_10_18_162703_create_requirements_table', 4);
 
 -- --------------------------------------------------------
 
@@ -105,14 +106,6 @@ CREATE TABLE `progress` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data for table `progress`
---
-
-INSERT INTO `progress` (`progress_id`, `name`, `project_id`, `created_at`, `updated_at`) VALUES
-(1, 'Catering', 2, '2021-10-18 01:54:56', '2021-10-18 01:54:56'),
-(2, 'Membuat Panggung', 2, '2021-10-17 19:20:13', '2021-10-17 19:20:13');
-
 -- --------------------------------------------------------
 
 --
@@ -123,10 +116,9 @@ CREATE TABLE `projects` (
   `project_id` int(10) UNSIGNED NOT NULL,
   `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `requirement` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `skala` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `scale` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `deadline` datetime NOT NULL,
-  `type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `visibility` enum('Public','Private') COLLATE utf8mb4_unicode_ci NOT NULL,
   `user_id` bigint(20) UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -136,10 +128,33 @@ CREATE TABLE `projects` (
 -- Dumping data for table `projects`
 --
 
-INSERT INTO `projects` (`project_id`, `title`, `description`, `requirement`, `skala`, `deadline`, `type`, `user_id`, `created_at`, `updated_at`) VALUES
-(1, 'Pertunjukan Seni', 'Pertunjukan Ketoprak', 'Sound System', '10', '2021-10-23 21:22:44', 'Personal', 1, '2021-10-17 14:22:44', '2021-10-17 14:22:44'),
-(2, 'Jaranan', 'Pertunjuan Jaranan', 'Panggung, Sound', '10', '2018-03-29 13:34:00', 'Personal', 1, '2021-10-17 07:47:15', '2021-10-17 07:47:15'),
-(3, 'Ketoparak', 'Pertunjukan', 'Sound', '10', '2021-10-18 10:34:00', 'Personal', 1, '2021-10-17 19:06:06', '2021-10-17 19:06:06');
+INSERT INTO `projects` (`project_id`, `title`, `description`, `scale`, `deadline`, `visibility`, `user_id`, `created_at`, `updated_at`) VALUES
+(13, 'Ketoparak', 'Pertunjukan', '10', '2021-10-18 10:34:00', 'Public', 1, '2021-10-18 18:11:50', '2021-10-18 18:11:50'),
+(14, 'Ketoparak', 'Pertunjukan', 'Home', '2021-10-18 10:34:00', 'Public', 1, '2021-10-18 18:19:04', '2021-10-18 18:19:04');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `requirements`
+--
+
+CREATE TABLE `requirements` (
+  `requirements_id` int(10) UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `project_id` int(11) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `requirements`
+--
+
+INSERT INTO `requirements` (`requirements_id`, `name`, `project_id`, `created_at`, `updated_at`) VALUES
+(8, 'Backend Dev', 13, '2021-10-18 18:11:50', '2021-10-18 18:11:50'),
+(9, 'FrontEnd Dev', 13, '2021-10-18 18:11:50', '2021-10-18 18:11:50'),
+(10, 'Backend Dev', 14, '2021-10-18 18:19:05', '2021-10-18 18:19:05'),
+(11, 'FrontEnd Dev', 14, '2021-10-18 18:19:05', '2021-10-18 18:19:05');
 
 -- --------------------------------------------------------
 
@@ -214,6 +229,12 @@ ALTER TABLE `projects`
   ADD KEY `user_id` (`user_id`);
 
 --
+-- Indexes for table `requirements`
+--
+ALTER TABLE `requirements`
+  ADD PRIMARY KEY (`requirements_id`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -234,7 +255,7 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
@@ -252,7 +273,13 @@ ALTER TABLE `progress`
 -- AUTO_INCREMENT for table `projects`
 --
 ALTER TABLE `projects`
-  MODIFY `project_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `project_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
+--
+-- AUTO_INCREMENT for table `requirements`
+--
+ALTER TABLE `requirements`
+  MODIFY `requirements_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `users`

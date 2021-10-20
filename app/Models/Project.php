@@ -24,4 +24,7 @@ class Project extends Model
     public function proposal(){
         return $this->hasMany(Proposal::class,'project_id');
     }
+    public function requirements(){
+        return $this->hasMany(Requirement::class,'project_id');
+    }
 }

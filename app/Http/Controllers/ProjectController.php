@@ -70,12 +70,22 @@ class ProjectController extends Controller
      * @param  \App\Models\Project  $project
      * @return \Illuminate\Http\Response
      */
-    public function find(){
-        $project = Project::where([
-                ['visibility','=','Public'],
-                ['user_id', '!=', Auth::user()->id]
-            ])->get();
-        return response()->json($project);
+    public function find(Request $request){
+        $requirements = $request->role;
+        $project = Project::with('requirements');
+        if ($request->has('title')){
+            $project->orWhere('title', 'like', '%' . $request->title . '%');
+        }
+        if($request->has('role')){
+            $project->whereHas('requirements', function($requirement) use ($requirements)  {
+                $requirement->where('name', 'like', '%' . $requirements . '%' );
+            });
+        }
+        $project->where([
+            ['visibility','=','Public'],
+            ['user_id', '!=', Auth::user()->id]
+        ]);
+        return response()->json($project->get());
     }
     public function show(Project $project)
     {

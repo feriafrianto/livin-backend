@@ -22,7 +22,12 @@ class ProjectController extends Controller
 
     public function getProjectUser()
     {
-        $project = Project::where('user_id',Auth::user()->id)->get();
+        $project = Project::with('user:id,first_name,last_name')->where('user_id',Auth::user()->id)->get();
+        return response()->json(['project' => $project]);
+    }
+    public function getDetail($id)
+    {
+        $project = Project::find($id);
         return response()->json(['project' => $project]);
     }
 
@@ -65,6 +70,10 @@ class ProjectController extends Controller
      * @param  \App\Models\Project  $project
      * @return \Illuminate\Http\Response
      */
+    public function find(){
+        $project = Project::where('visibility','Public')->get();
+        return response()->json($project);
+    }
     public function show(Project $project)
     {
         //

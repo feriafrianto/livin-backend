@@ -17,11 +17,10 @@ class CreateProjectsTable extends Migration
             $table->increments('project_id');
             $table->string('title');
             $table->text('description');
-            $table->string('requirement');
-            $table->string('skala');
-            $table->dateTime('deadline', $precision = 0);
-            $table->string('type');
-            $table->integer('user_id');
+            $table->string('scale');
+            $table->dateTime('deadline');
+            $table->string('visibility');
+            $table->unsignedInteger('user_id')->index('user_id');
             $table->timestamps();
         });
     }

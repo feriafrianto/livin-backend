@@ -14,4 +14,11 @@ class Project extends Model
         'title','description','scale',
         'deadline','visibility','user_id'
     ];
+
+    public function member(){
+        return $this->hasMany(Member::class,'project_id');
+    }
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
 }

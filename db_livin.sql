@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 20, 2021 at 01:20 PM
+-- Generation Time: Oct 20, 2021 at 07:04 PM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 7.3.30
 
@@ -147,6 +147,7 @@ CREATE TABLE `progress` (
   `progress_id` int(10) UNSIGNED NOT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `project_id` int(10) UNSIGNED NOT NULL,
+  `isChecked` tinyint(1) NOT NULL DEFAULT 0,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -155,8 +156,8 @@ CREATE TABLE `progress` (
 -- Dumping data for table `progress`
 --
 
-INSERT INTO `progress` (`progress_id`, `name`, `project_id`, `created_at`, `updated_at`) VALUES
-(2, 'Membuat Panggung', 2, '2021-10-20 01:22:56', '2021-10-20 01:22:56');
+INSERT INTO `progress` (`progress_id`, `name`, `project_id`, `isChecked`, `created_at`, `updated_at`) VALUES
+(2, 'Membuat Panggung', 2, 0, '2021-10-20 01:22:56', '2021-10-20 10:02:48');
 
 -- --------------------------------------------------------
 
@@ -206,7 +207,8 @@ CREATE TABLE `proposals` (
 --
 
 INSERT INTO `proposals` (`proposal_id`, `role`, `coverletter`, `status`, `project_id`, `user_id`, `created_at`, `updated_at`) VALUES
-(2, 'Backend', 'Saya Mau Daftar', 'Waiting', 2, 2, '2021-10-20 01:47:26', '2021-10-20 01:47:26');
+(2, 'Backend', 'Saya Mau Daftar', 'Approved', 2, 2, '2021-10-20 01:47:26', '2021-10-20 04:43:22'),
+(3, 'Front End', 'Saya Mau Daftar DOng', 'Waiting', 2, 2, '2021-10-20 08:23:50', '2021-10-20 08:23:50');
 
 -- --------------------------------------------------------
 
@@ -377,7 +379,7 @@ ALTER TABLE `projects`
 -- AUTO_INCREMENT for table `proposals`
 --
 ALTER TABLE `proposals`
-  MODIFY `proposal_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `proposal_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `requirements`

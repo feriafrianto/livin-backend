@@ -71,7 +71,10 @@ class ProjectController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function find(){
-        $project = Project::where('visibility','Public')->get();
+        $project = Project::where([
+                ['visibility','=','Public'],
+                ['user_id', '!=', Auth::user()->id]
+            ])->get();
         return response()->json($project);
     }
     public function show(Project $project)

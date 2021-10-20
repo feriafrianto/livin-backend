@@ -15,5 +15,7 @@ class Proposal extends Model
         'role','coverletter',
         'project_id','user_id'
     ];
-
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
 }

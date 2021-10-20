@@ -24,4 +24,14 @@ class ProposalController extends Controller
             return response()->json([ 'message' => "Failed"]);
         }
     }
+    public function updateProposal(Request $request,$id){
+        $proposal = Proposal::where("proposal_id",$id)->update([
+            'status' => $request->status
+        ]);
+        if ($proposal){
+            return response()->json(['message' => "Data Successfully Updated"]);
+        } else {
+            return response()->json(['message' => "Failed"]);
+        }
+    }
 }

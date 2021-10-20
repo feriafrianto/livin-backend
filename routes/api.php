@@ -52,3 +52,5 @@ Route::get('/project',[ProjectController::class,'index']);
 Route::get('/project/{id}',[ProjectController::class,'getDetail']);
 Route::get('/progress/{id}',[ProgressController::class,'index']);
 Route::get('/find',[ProjectController::class,'find']);
+
+Route::put('/proposal/update/{id}',[ProposalController::class,'updateProposal']);

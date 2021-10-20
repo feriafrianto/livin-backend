@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 20, 2021 at 11:50 AM
+-- Generation Time: Oct 20, 2021 at 01:20 PM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 7.3.30
 
@@ -171,6 +171,7 @@ CREATE TABLE `projects` (
   `scale` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `deadline` datetime NOT NULL,
   `visibility` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `status` enum('Open','Active','Done') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'Open',
   `user_id` int(10) UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -180,8 +181,8 @@ CREATE TABLE `projects` (
 -- Dumping data for table `projects`
 --
 
-INSERT INTO `projects` (`project_id`, `title`, `description`, `scale`, `deadline`, `visibility`, `user_id`, `created_at`, `updated_at`) VALUES
-(2, 'Ketoparak', 'Pertunjukan', '10', '2021-10-18 10:34:00', 'Public', 1, '2021-10-20 01:21:54', '2021-10-20 01:21:54');
+INSERT INTO `projects` (`project_id`, `title`, `description`, `scale`, `deadline`, `visibility`, `status`, `user_id`, `created_at`, `updated_at`) VALUES
+(2, 'Ketoparak', 'Pertunjukan', '10', '2021-10-18 10:34:00', 'Public', 'Open', 1, '2021-10-20 01:21:54', '2021-10-20 01:21:54');
 
 -- --------------------------------------------------------
 
@@ -240,11 +241,10 @@ CREATE TABLE `users` (
   `first_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `last_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email_verified_at` timestamp NULL DEFAULT NULL,
   `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `account_type` enum('Personal','Government','Commercial','Non-Commercial') COLLATE utf8mb4_unicode_ci NOT NULL,
   `gender` enum('Female','Male') COLLATE utf8mb4_unicode_ci NOT NULL,
-  `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `phone_number` varchar(13) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -253,9 +253,10 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `first_name`, `last_name`, `email`, `email_verified_at`, `password`, `account_type`, `gender`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Livin', 'Admin', 'admin@livin.com', NULL, '$2y$10$z7phYX0mSX1tyzVC54wzOuq67H/7fB0jDxjvO4awjHZxVnGdYViuK', 'Personal', 'Male', NULL, '2021-10-15 06:38:44', '2021-10-15 06:38:44'),
-(2, 'Feri', 'Afrianto', 'feri@livin.com', NULL, '$2y$10$SdaUdftKc/MHBZnAU1pyWObYtDAJYl1bTThnM5ogrd2vRzEhrVo3W', 'Personal', 'Male', NULL, '2021-10-20 00:02:14', '2021-10-20 00:02:14');
+INSERT INTO `users` (`id`, `first_name`, `last_name`, `email`, `password`, `account_type`, `gender`, `phone_number`, `created_at`, `updated_at`) VALUES
+(1, 'Livin', 'Admin', 'admin@livin.com', '$2y$10$z7phYX0mSX1tyzVC54wzOuq67H/7fB0jDxjvO4awjHZxVnGdYViuK', 'Personal', 'Male', NULL, '2021-10-15 06:38:44', '2021-10-15 06:38:44'),
+(2, 'Feri', 'Afrianto', 'feri@livin.com', '$2y$10$SdaUdftKc/MHBZnAU1pyWObYtDAJYl1bTThnM5ogrd2vRzEhrVo3W', 'Personal', 'Male', NULL, '2021-10-20 00:02:14', '2021-10-20 00:02:14'),
+(3, 'yuda', 'Tekkom', 'yuda@livin.com', '$2y$10$q53eMkAqSDRkt60pE1Hyu.XCRGA5Zl7C5p9awGFUC2Ds4r5GXtEGK', 'Personal', 'Male', '085853520984', '2021-10-20 04:19:05', '2021-10-20 04:19:05');
 
 --
 -- Indexes for dumped tables
@@ -388,7 +389,7 @@ ALTER TABLE `requirements`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Constraints for dumped tables

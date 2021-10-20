@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ProgressController;
+use App\Http\Controllers\ProposalController;
 
 
 /*
@@ -43,6 +44,8 @@ Route::group([
     Route::post('/project',[ProjectController::class,'store']);
 
     Route::post('/progress',[ProgressController::class,'store']);
+
+    Route::post('/join',[ProposalController::class,'store']);
     
 });
 Route::get('/project',[ProjectController::class,'index']);

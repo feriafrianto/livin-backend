@@ -50,7 +50,10 @@ Route::group([
 });
 Route::get('/project',[ProjectController::class,'index']);
 Route::get('/project/{id}',[ProjectController::class,'getDetail']);
+
 Route::get('/progress/{id}',[ProgressController::class,'index']);
+Route::put('/progress/{id}',[ProgressController::class,'updateProgress']);
+
 Route::get('/find',[ProjectController::class,'find']);
 
 Route::put('/proposal/update/{id}',[ProposalController::class,'updateProposal']);

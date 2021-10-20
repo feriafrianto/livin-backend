@@ -35,7 +35,16 @@ class ProgressController extends Controller
             return response()->json([ 'message' => "Failed"]);
         }
     }
-
+    public function updateProgress($id){
+        $progress = Progress::where("progress_id",$id)->update([
+            'isChecked' => true
+        ]);
+        if ($progress){
+            return response()->json(['message' => "Data Successfully Updated"]);
+        } else {
+            return response()->json(['message' => "Failed"]);
+        }
+    }
     /**
      * Display the specified resource.
      *

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Project;
 use App\Models\Requirement;
+use App\Models\Proposal;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -33,7 +34,11 @@ class ProjectController extends Controller
     public function getDetail($id)
     {
         $project = Project::with('proposal.user','requirements')->find($id);
-        return response()->json(['project' => $project]);
+        $member = Proposal::with('user')->where('status','Approved')->get();
+        return response()->json([
+            'project' => $project,
+            'member' => $member
+        ]);
     }
 
     /**

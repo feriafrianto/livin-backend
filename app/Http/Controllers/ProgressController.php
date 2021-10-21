@@ -36,13 +36,21 @@ class ProgressController extends Controller
         }
     }
     public function updateProgress($id){
-        $progress = Progress::where("progress_id",$id)->update([
-            'isChecked' => true
-        ]);
-        if ($progress){
+        // $progress = Progress::where("progress_id",$id)->update([
+        //     'isChecked' => true
+        // ]);
+        $progress = Progress::select('isChecked')->where("progress_id",$id)->first();
+        //return response()->json($progress);
+        if ($progress->isChecked){
+            Progress::where("progress_id",$id)->update([
+                    'isChecked' => false
+            ]);
             return response()->json(['message' => "Data Successfully Updated"]);
         } else {
-            return response()->json(['message' => "Failed"]);
+            Progress::where("progress_id",$id)->update([
+                'isChecked' => true
+            ]);
+            return response()->json(['message' => "Data Successfully Updated"]);
         }
     }
     /**

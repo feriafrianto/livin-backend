@@ -22,7 +22,12 @@ class ProjectController extends Controller
 
     public function getProjectUser()
     {
-        $project = Project::with('user:id,first_name,last_name')->where('user_id',Auth::user()->id)->get();
+        $project = Project::with('user:id,first_name,last_name')->whereHas('proposal', function ($query) {
+            return $query->where([
+                ['user_id', '=', Auth::user()->id],
+                ['status', '=', 'Approved']
+            ]);
+        })->orWhere('user_id',Auth::user()->id)->get();
         return response()->json(['project' => $project]);
     }
     public function getDetail($id)

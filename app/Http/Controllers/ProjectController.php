@@ -27,7 +27,7 @@ class ProjectController extends Controller
     }
     public function getDetail($id)
     {
-        $project = Project::with('proposal.user')->find($id);
+        $project = Project::with('proposal.user','requirements')->find($id);
         return response()->json(['project' => $project]);
     }
 

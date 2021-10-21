@@ -8,6 +8,10 @@ use Illuminate\Support\Facades\Auth;
 
 class ProposalController extends Controller
 {
+    public function index(){
+        $proposal = Proposal::where("user_id",Auth::user()->id)->get();
+        return response()->json($proposal);
+    }
     public function store(Request $request)
     {
         $proposal = new Proposal();

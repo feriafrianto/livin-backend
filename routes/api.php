@@ -46,6 +46,7 @@ Route::group([
     Route::post('/progress',[ProgressController::class,'store']);
 
     Route::post('/join',[ProposalController::class,'store']);
+    Route::get('/user/proposal',[ProposalController::class,'index']);
     
 });
 Route::get('/project',[ProjectController::class,'index']);
@@ -57,3 +58,4 @@ Route::put('/progress/{id}',[ProgressController::class,'updateProgress']);
 Route::get('/find',[ProjectController::class,'find']);
 
 Route::put('/proposal/update/{id}',[ProposalController::class,'updateProposal']);
+
